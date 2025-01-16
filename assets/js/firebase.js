@@ -11,6 +11,14 @@ const firebaseConfig = {
   appId: "1:93418793018:web:f7a79a0728aca15075ed03"
 };
 
+let countryName = ""
+fetch('https://api.ipregistry.co/?key=tryout').then(function (response) {
+    return response.json();
+})
+.then(function (payload) {
+  countryName = payload.location.city + ', ' + payload.location.country.name;
+});
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
@@ -26,13 +34,13 @@ function submitForm(e) {
   var subject = getElementVal("subject");
   var message = getElementVal("message");
 
-  var today = new Date()
-  var messageid = today.toLocaleDateString().replaceAll("/",'-') + "-" + today.toLocaleTimeString()
-  set(ref(contactFormDB, 'messages/'+messageid  ),{
-    name: name,
-    email: email,
-    subject: subject,
-    message: message
+  var messageid = moment().format('YYYY-MM-DDTHH:mm:ss');
+  set(ref(contactFormDB, 'messages/'+messageid),{
+    name,
+    email,
+    subject,
+    message,
+    countryName
   });
 
   //   enable alert
