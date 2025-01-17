@@ -159,11 +159,12 @@ h6 {
   margin-right: 8px;
 }
 
-.header .logo h1 {
+.header .logo .sitename {
   font-size: 30px;
   margin: 0;
   font-weight: 700;
   color: var(--heading-color);
+  font-family: var(--heading-font);
 }
 
 .header .btn-getstarted,
